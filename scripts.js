@@ -64,3 +64,19 @@ var products = [
     }
 ];
  
+// créer un objet qui contiendra la logique de l'appli
+
+const SelfServiceMachine = {
+    // logique de l'appli
+    // data est la fonction qui contient les données et retourne un objet
+    data() {
+        return {
+            products: window.products
+        }
+    }
+};
+
+// appeler l'objet vue avec comme argument l'objet contenant la logique
+// on passe ici l'id du main du html
+
+Vue.createApp(SelfServiceMachine).mount('#app');
