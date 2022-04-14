@@ -12,137 +12,39 @@
     </head>
 
     <body>
-        
+        <!-- Pour chaque éléments dans products, on va recréer l'élélement avec la photo, le prix, etc avec v-for-->
         <main id="app">
-            
             <section class="items">
                 <h4>Pick your items</h4>
-                <div class="product selected">
+                <!-- Recréé la structure de la div pour chaque produits -->
+                <!-- Il faut basculer de true à false lorsque l'on clique sur l"élément-->
+                <!--Le ! va permettre de retourner le contraire pour passer de true à false mais aussi de false à true-->
+                <!-- On peut aussi utiliser directement @click="product ..."-->
+                <!-- Si product.active = true, on ajoute la classe selected sinon on ajoute rien -->
+                <div 
+                v-for="product in products" 
+                class="product"
+                v-on:click="product.active = !product.active"
+                :class="{selected : product.active}"
+                >
                     <div class="photo">
-                        <img src="img/big-mac.png">
+                        <!--Dans un attribut on n'utilise pas les accolades et on jaoute : avant le nom de l'attribut pour dire que c'est du dynamique et pas une string -->
+                        <img :src="product.photo">
                     </div>
                     <div class="description">
-                        <span class="name">Big Mac</span>
-                        <span class="price">$ 5.99</span>
-                        <div class="quantity-area">
-                            <button>-</button>
-                            <span class="quantity">1</span>
-                            <button>+</button>
+                        <span class="name">{{product.name}}</span>
+                        <span class="price">{{product.price}}</span>
+                        <div class="quantity-area" v-if="product.active">
+                            <!-- on utilise ici le @click qui replace v-on:click-->
+                            <!-- on ajoute .stop pour que la propagation ne se fasse pas à l'élément parent-->
+                            <!-- Le disabled dynamiue permet de disabled le bouton - quand il est <= 1 -->
+                            <button @click.stop="product.quantity--" :disabled="product.quantity <= 1">-</button>
+                            <span class="quantity">{{product.quantity}}</span>
+                            <button @click.stop="product.quantity++">+</button>
                         </div>
                     </div>
                 </div>
-                <div class="product">
-                    <div class="photo">
-                        <img src="img/mc-chicken.png">
-                    </div>
-                    <div class="description">
-                        <span class="name">Mc Chicken</span>
-                        <span class="price">$ 4.99</span>
-                        <div class="quantity-area">
-                            <button>-</button>
-                            <span class="quantity">1</span>
-                            <button>+</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="product">
-                    <div class="photo">
-                        <img src="img/double-cb.png">
-                    </div>
-                    <div class="description">
-                        <span class="name">Double Cheese Burger</span>
-                        <span class="price">$ 2.99</span>
-                        <div class="quantity-area">
-                            <button>-</button>
-                            <span class="quantity">1</span>
-                            <button>+</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="product">
-                    <div class="photo">
-                        <img src="img/fries.png">
-                    </div>
-                    <div class="description">
-                        <span class="name">Fries</span>
-                        <span class="price">$ 2.99</span>
-                        <div class="quantity-area">
-                            <button>-</button>
-                            <span class="quantity">1</span>
-                            <button>+</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="product">
-                    <div class="photo">
-                        <img src="img/nuggets.png">
-                    </div>
-                    <div class="description">
-                        <span class="name">Mc Nuggets</span>
-                        <span class="price">$ 3.49</span>
-                        <div class="quantity-area">
-                            <button>-</button>
-                            <span class="quantity">1</span>
-                            <button>+</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="product">
-                    <div class="photo">
-                        <img src="img/salad.png">
-                    </div>
-                    <div class="description">
-                        <span class="name">Salad</span>
-                        <span class="price">$ 2.79</span>
-                        <div class="quantity-area">
-                            <button>-</button>
-                            <span class="quantity">1</span>
-                            <button>+</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="product">
-                    <div class="photo">
-                        <img src="img/cola.png">
-                    </div>
-                    <div class="description">
-                        <span class="name">Coke</span>
-                        <span class="price">$ 1.99</span>
-                        <div class="quantity-area">
-                            <button>-</button>
-                            <span class="quantity">1</span>
-                            <button>+</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="product">
-                    <div class="photo">
-                        <img src="img/lipton.png">
-                    </div>
-                    <div class="description">
-                        <span class="name">Ice Tea</span>
-                        <span class="price">$ 1.99</span>
-                        <div class="quantity-area">
-                            <button>-</button>
-                            <span class="quantity">1</span>
-                            <button>+</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="product">
-                    <div class="photo">
-                        <img src="img/water.png">
-                    </div>
-                    <div class="description">
-                        <span class="name">Water</span>
-                        <span class="price">$ 1.49</span>
-                        <div class="quantity-area">
-                            <button>-</button>
-                            <span class="quantity">1</span>
-                            <button>+</button>
-                        </div>
-                    </div>
-                </div>
+                
             </section>
 
             <section class="summary">
@@ -170,7 +72,12 @@
 
         </main>
 
+        <!-- Appeler vue à partir d'une balise script -->
+        <script src="https://unpkg.com/vue@3"></script>
+        <script src="https://unpkg.com/vue@next"></script>
         <script src="scripts.js"></script>
+
+
     </body>
 
 </html>
