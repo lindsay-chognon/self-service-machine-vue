@@ -28,7 +28,7 @@
                 :class="{selected : product.active}"
                 >
                     <div class="photo">
-                        <!--Dans un attribut on n'utilise pas les accolades et on jaoute : avant le nom de l'attribut pour dire que c'est du dynamique et pas une string -->
+                        <!--Dans un attribut on n'utilise pas les accolades et on ajoute : avant le nom de l'attribut pour dire que c'est du dynamique et pas une string -->
                         <img :src="product.photo">
                     </div>
                     <div class="description">
@@ -57,9 +57,15 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1x Big Mac</td>
-                            <td>5.99</td>
+                        <!-- on refait une boucle sur chaque produit pour reproduire l'élément ligne de tableau -->
+                        <tr v-for="product in products">
+                            <!-- on utilise l'élément html template pour ne pas lancer à l'afichage de la page-->
+                            <!-- on affiche le produit que si il est "active"-->
+                            <template v-if="product.active">
+                                <!-- on récupère les infos -->
+                                <td v-if="product.active">{{product.quantity + 'x ' + product.name}}</td>
+                                <td v-if="product.active">{{ (product.quantity * product.price).toFixed(2) }}</td>
+                            </template>
                         </tr>
                         
                         <tr>
