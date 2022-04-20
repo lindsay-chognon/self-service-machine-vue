@@ -47,7 +47,8 @@
                 
             </section>
 
-            <section class="summary">
+            <!-- On n'affiche cette section que si total > 0-->
+            <section class="summary" v-if="total() > 0">
                 <strong>Order Details</strong>
                 <table>
                     <thead>
@@ -70,7 +71,9 @@
                         
                         <tr>
                             <th>Total</th>
-                            <th>5.99</th>
+                            <!-- On peut utiliser les méthodes comme les propriétés -->
+                            <!-- On indique à vue js que c'est une méthode en ouvrant les parenthèses-->
+                            <th>{{ total() }}</th>
                         </tr>
                     </tbody>
                 </table>
